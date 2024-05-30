@@ -11,4 +11,6 @@ Rails.application.routes.draw do
 
   post "/message" => "messages#create"
 
+  mount ActionCable.server , at: '/cable'
+
 end
