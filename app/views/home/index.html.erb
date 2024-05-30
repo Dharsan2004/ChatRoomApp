@@ -1,1 +1,64 @@
-this is chatRoom
+<div class="container mt-5">
+    <div class="chatbox border rounded shadow">
+      <div class="online-users p-3">
+        <h5>Online Users</h5>
+        <ul class="list-group" id="user-list">
+          <!-- Usernames will be dynamically inserted here -->
+        </ul>
+      </div>
+      <div class="chat-area">
+        <div class="messages" id="messages">
+          <!-- Chat messages will be dynamically inserted here -->
+
+            <% @messages.each do |msg|%>
+                <div class="message"> From: <b> <%=msg.user.username%></b>,  <%= msg.body %> </div>
+            <% end %>
+
+        </div>
+
+        
+     
+        <%= form_with url: "message_path" , method: :post, local: true do |form| %>      
+            <div class="mb-1">
+              <%= form.label :message, "Message : ", class: "form-label" %>
+              <%= form.text_field :message, class: "form-control" %>
+              <%= form.submit "Send", class: "btn btn-primary" %>
+            </div>
+         <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Mock online users
+      const onlineUsers = ["User1", "User2", "User3"];
+
+      
+
+      // Display online users
+      const userList = $('#user-list');
+      onlineUsers.forEach(user => {
+        userList.append(`<li class="list-group-item">${user}</li>`);
+      });
+
+      // Send message functionality
+      $('#send-button').click(function() {
+        const messageInput = $('#message-input');
+        const message = messageInput.val().trim();
+        if (message !== '') {
+          $('#messages').append(`<div class="message">${message}</div>`);
+          messageInput.val('');
+        }
+      });
+
+      // Press Enter to send message
+      $('#message-input').keypress(function(e) {
+        if (e.which == 13) {
+          $('#send-button').click();
+        }
+      });
+    });
+  </script>
