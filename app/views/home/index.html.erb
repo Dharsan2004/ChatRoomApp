@@ -18,7 +18,7 @@
 
         
      
-        <%= form_with url: "message_path" , method: :post, local: true do |form| %>      
+        <%= form_with url: message_path , method: :post, local: true do |form| %>      
             <div class="mb-1">
               <%= form.label :message, "Message : ", class: "form-label" %>
               <%= form.text_field :message, class: "form-control" %>
